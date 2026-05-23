@@ -351,7 +351,7 @@
   @media print {
     @page { margin: 8mm 0; }
     * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-    body { padding: 0; background: #ffffff; }
+    body { padding: 0; min-height: 0; background: #ffffff; }
     .body { background: #ffffff; border-bottom: none; border-radius: 0; }
     .theme-toggle { display: none; }
     .print-end {
@@ -661,7 +661,8 @@
 <script>
   // Continuous export: add ?continuous to the URL to suppress page breaks
   if (location.search.includes('continuous')) {
-    const heightIn = ((document.documentElement.scrollHeight / 96) + 0.5).toFixed(2);
+    const pageEl = document.querySelector('.page');
+    const heightIn = ((pageEl.offsetHeight / 96) + 0.75).toFixed(2);
     const s = document.createElement('style');
     s.textContent = `@page { size: 8.5in ${heightIn}in; margin: 8mm 0; }`;
     document.head.appendChild(s);
