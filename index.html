@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dustin Estes — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@200;300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@200;300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500&display=swap');
+  :root {
+    --bg-primary: #111110;
+    --bg-body: #1a1917;
+    --bg-section: #1f1e1c;
+    --bg-stat: #111110;
+    --text-primary: #f0ede8;
+    --text-secondary: #a09c94;
+    --text-muted: #555;
+    --gold: #c8a96e;
+    --gold-dim: rgba(200,169,110,0.35);
+    --gold-faint: rgba(200,169,110,0.08);
+    --rule: rgba(200,169,110,0.2);
+    --border: rgba(255,255,255,0.06);
+    --body-bg: #141412;
+
+    /* ── Font roles ── swap one line here to retheme all typography */
+    --font-display: 'Syne', 'Arial Black', sans-serif;
+    --font-mono:    'DM Mono', 'Courier New', monospace;
+  }
+  [data-theme="light"] {
+    --bg-primary: #111110;
+    --bg-body: #ffffff;
+    --bg-section: #f7f6f3;
+    --bg-stat: #1a1917;
+    --text-primary: #1a1917;
+    --text-secondary: #6b6560;
+    --text-muted: #999;
+    --gold: #c8a96e;
+    --gold-dim: rgba(200,169,110,0.5);
+    --gold-faint: rgba(200,169,110,0.08);
+    --rule: rgba(160,120,64,0.25);
+    --border: rgba(0,0,0,0.08);
+    --body-bg: #f0ede8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--body-bg);
+    font-family: var(--font-mono);
+    min-height: 100vh;
+    padding: 32px 20px;
+    transition: background 0.3s ease;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ── Theme toggle ── */
+  .theme-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+    background: var(--bg-primary);
+    border: 0.5px solid var(--gold-dim);
+    border-radius: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+  }
+  .theme-toggle:hover { border-color: var(--gold); }
+  .theme-toggle svg { width: 13px; height: 13px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; }
+
+  /* ── Header ── */
+  .header {
+    background: var(--bg-primary);
+    padding: 32px 36px 26px;
+    border-radius: 6px 6px 0 0;
+    border: 0.5px solid var(--border);
+    border-bottom: none;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .name-row {
+    display: flex;
+    align-items: baseline;
+    gap: 13px;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+  .name-first {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 500;
+    color: #f0ede8;
+    letter-spacing: -1px;
+  }
+  .name-last {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: -1px;
+  }
+  .name-rule {
+    width: 36px;
+    height: 1.5px;
+    background: var(--gold);
+    margin-bottom: 18px;
+  }
+  .contact-chips {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .contact-text { display: flex; gap: 8px; flex-wrap: wrap; }
+  .contact-icons { display: flex; gap: 14px; align-items: center; }
+  .icon-chip {
+    display: flex;
+    align-items: center;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+    text-decoration: none;
+  }
+  .icon-chip:hover { opacity: 1; }
+  .icon-chip svg { height: 16px; width: auto; }
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--gold-dim);
+    padding: 6px 12px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .chip:hover { border-color: var(--gold); background: var(--gold-faint); }
+
+  /* ── Body ── */
+  .body {
+    background: var(--bg-section);
+    border: 0.5px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    padding: 32px 28px;
+    border-right: 0.5px solid var(--rule);
+  }
+  .sidebar-section { margin-bottom: 28px; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .skill-group { margin-bottom: 14px; }
+  .skill-name {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  .skill-tags {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .lang-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .lang-chip {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--gold);
+    border: 0.5px solid var(--gold-dim);
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+  .project-item { margin-bottom: 12px; }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .project-link::before { content: "//"; opacity: 0.45; font-size: 9px; }
+  .project-link:hover { opacity: 0.7; }
+  .project-desc {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-top: 3px;
+  }
+  .cert-item { margin-bottom: 10px; }
+  .cert-name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+  }
+  .cert-sub {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+  .award-item { margin-bottom: 8px; display: flex; align-items: baseline; gap: 6px; }
+  .award-dot { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; flex-shrink: 0; margin-bottom: 2px; }
+  .award-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .award-text strong { color: var(--text-primary); font-weight: 400; }
+
+  /* ── Main ── */
+  .main {
+    padding: 32px 32px 32px 36px;
+  }
+  .main-section { margin-bottom: 36px; }
+  .main-section:last-child { margin-bottom: 0; }
+
+  .job { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 0.5px solid var(--rule); }
+  .job:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+  .job-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .job-date {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .job-company {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .job-desc {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .bullets { list-style: none; padding: 0; margin-bottom: 14px; }
+  .bullets li {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 5px;
+  }
+  .bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 9px;
+  }
+  .stat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .stat {
+    background: var(--bg-stat);
+    padding: 8px 14px;
+    border-radius: 2px;
+    min-width: 90px;
+  }
+  .stat-n {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 3px;
+    letter-spacing: -0.5px;
+  }
+  .stat-l {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* profile summary */
+  .summary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding: 16px 18px;
+    border-left: 1.5px solid var(--gold);
+    background: var(--gold-faint);
+    border-radius: 0 2px 2px 0;
+    margin-bottom: 28px;
+  }
+
+  .print-end { display: none; }
+
+  @media print {
+    @page { margin: 8mm 0; }
+    * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    body { padding: 0; background: #ffffff; }
+    .body { background: #ffffff; border-bottom: none; border-radius: 0; }
+    .theme-toggle { display: none; }
+    .print-end {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 0 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .print-end-rule {
+      flex: 1;
+      height: 0.5px;
+      background: #c8a96e;
+      opacity: 0.4;
+    }
+    .print-end-text {
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      color: #c8a96e;
+      opacity: 0.7;
+      white-space: nowrap;
+    }
+    .page { max-width: 100%; }
+    [data-theme="dark"] { --bg-primary: #111110; --bg-section: #ffffff; --body-bg: #ffffff; }
+  }
+
+  @media (max-width: 680px) {
+    .body { grid-template-columns: 1fr; }
+    .sidebar { border-right: none; border-bottom: 0.5px solid var(--rule); }
+    .name-first, .name-last { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">
+  <svg id="theme-icon" viewBox="0 0 24 24">
+    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+  </svg>
+  <span id="theme-label">Light</span>
+</button>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="eyebrow">// Automation Engineer &nbsp;·&nbsp; Software Developer &nbsp;·&nbsp; Enterprise Architect</div>
+    <div class="name-row">
+      <span class="name-first">Dustin</span>
+      <span class="name-last">Estes</span>
+    </div>
+    <div class="name-rule"></div>
+    <div class="contact-chips">
+      <div class="contact-text">
+        <a href="mailto:hire@dustinestes.com" class="chip">hire@dustinestes.com</a>
+      </div>
+      <div class="contact-icons">
+        <a href="https://www.dustinestes.com" class="icon-chip" target="_blank" title="dustinestes.com">
+          <svg viewBox="0 0 24 24" fill="#c8a96e" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </a>
+        <a href="https://github.com/dustinestes" class="icon-chip" target="_blank" title="GitHub">
+          <svg viewBox="0 0 16 16" fill="#c8a96e" xmlns="http://www.w3.org/2000/svg"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/dustinestes/" class="icon-chip" target="_blank" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="#c8a96e" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/dustinestes/waypoint" class="icon-chip" target="_blank" title="Waypoint">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" rx="14" fill="#c8a96e"/><path fill="#111110" d="m32 10 18 18-18 18-18-18z"/><path fill="none" stroke="#111110" stroke-width="1.5" d="m32 10 18 18-18 18-18-18z"/><circle cx="32" cy="28" r="6" fill="#111110"/><circle cx="32" cy="28" r="3" fill="#111110"/><rect x="29" y="44" width="6" height="8" rx="1" fill="#111110"/><path fill="#111110" d="M26 50h12l-6 7z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="section-label">Core Skills</div>
+        <div class="skill-group">
+          <div class="skill-name">Automation & Scripting</div>
+          <div class="skill-tags">PowerShell · Python · Go · Ansible · Bash · Jenkins</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-name">Endpoint Management</div>
+          <div class="skill-tags">MECM/SCCM · Intune · Workspace ONE · WaaS</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-name">Platform & Infrastructure</div>
+          <div class="skill-tags">Active Directory · Identity Management · VMware · Hyper-V</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-name">Integrations & APIs</div>
+          <div class="skill-tags">ServiceNow · Microsoft 365 · Graph API · REST · SharePoint</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-name">Software Development</div>
+          <div class="skill-tags">Ruby/Rails · JavaScript · HTML/CSS · SQL · REST APIs · Git</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-name">Architecture & Design</div>
+          <div class="skill-tags">Enterprise Solution Design · UX/UI · Technical Documentation · Process Engineering</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-name">Observability & BI</div>
+          <div class="skill-tags">Power BI · SQL reporting · ServiceNow dashboards</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Languages</div>
+        <div class="lang-chips">
+          <span class="lang-chip">PowerShell</span>
+          <span class="lang-chip">Python</span>
+          <span class="lang-chip">Go</span>
+          <span class="lang-chip">Ruby</span>
+          <span class="lang-chip">JavaScript</span>
+          <span class="lang-chip">HTML/CSS</span>
+          <span class="lang-chip">SQL</span>
+          <span class="lang-chip">VBScript</span>
+          <span class="lang-chip">Bash</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Projects</div>
+        <div class="project-item">
+          <a href="https://github.com/dustinestes/waypoint" class="project-link" target="_blank">Waypoint</a>
+          <div class="project-desc">A lightweight, file-based framework for structuring and tracking self-directed learning — no accounts, no lock-in. Your learning, mapped.</div>
+        </div>
+        <div class="project-item">
+          <a href="https://github.com/dustinestes/HeartOfGold" class="project-link" target="_blank">HeartOfGold</a>
+          <div class="project-desc">An automated end-to-end packaging and testing software suite.</div>
+        </div>
+        <div class="project-item">
+          <a href="https://github.com/dustinestes/MECMImagingLTI" class="project-link" target="_blank">MECM Imaging LTI</a>
+          <div class="project-desc">A GUI tool for passing config parameters to an MECM Task Sequence.</div>
+        </div>
+        <div class="project-item">
+          <a href="https://github.com/dustinestes/MECM_ClientCleaner" class="project-link" target="_blank">MECM_ClientCleaner</a>
+          <div class="project-desc">A portable Go tool to uninstall corrupted MECM clients.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Certifications</div>
+        <div class="cert-item">
+          <div class="cert-name">MCTS: 70-243</div>
+          <div class="cert-sub">Administering & Deploying SCCM</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">MCTS: 70-640</div>
+          <div class="cert-sub">Windows Server Active Directory</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Recognition</div>
+        <div class="award-item"><div class="award-dot"></div><div class="award-text"><strong>Silver Award</strong> · Dell Q1 & Q2 2018</div></div>
+        <div class="award-item"><div class="award-dot"></div><div class="award-text"><strong>Bronze Award</strong> · Dell Q4 2017</div></div>
+        <div class="award-item"><div class="award-dot"></div><div class="award-text"><strong>Top Dog Award</strong> · Sparkhound Q1 2012</div></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Interests</div>
+        <div class="skill-tags" style="line-height:1.9">
+          Software development · Open source · Custom automotive builds · Electrical circuit design · UX/UI · Brand development · Snowboarding · Skydiving · Rock climbing · Scuba diving · Wakeboarding
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <div class="summary">
+        Engineer and architect with 21 years building automation systems, endpoint platforms, and scalable solutions across Fortune 500s, SpaceX, and global consulting firms. I bring the technical depth to write the code and design the system, and the communication skills to work alongside teams, leadership, and clients to make sure what gets built actually solves the right problem — and that the people inheriting it can own it with confidence.
+      </div>
+
+      <div class="main-section">
+        <div class="section-label">Experience</div>
+
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Architect I</div>
+            <div class="job-date">2022 – Present</div>
+          </div>
+          <div class="job-company">Insight &nbsp;·&nbsp; Remote</div>
+          <div class="job-desc">Delivered enterprise automation, endpoint modernization, and platform solutions across Fortune 500 clients. Owned full solution lifecycle — from pre-sales design through delivery, documentation, and client enablement.</div>
+          <ul class="bullets">
+            <li>Designed and built a CI/CD pipeline for MECM Windows imaging using a purpose-built Ansible environment with 2 control nodes for high availability and 55 managed nodes — one per physical client location. Integrated the pipeline into ServiceNow as the orchestration layer: once an engineer validated imaging changes against an isolated pool of dev VMs and opened a change ticket, a ServiceNow workflow triggered the Ansible playbook across all nodes. Each node remotely initiated the updated Task Sequence via the MECM client API, rebooted, executed the full imaging workflow, and upon coming back online was monitored for uptime before a second playbook executed automated checks querying custom WMI data for task sequence version, completion status, and execution time. All results were centrally logged in ServiceNow providing per-site success and failure metrics as well as time-to-completion trending — making it immediately visible which locations were experiencing failures or degraded performance after each change. Retired the previous task sequence version automatically, removing it from device visibility to eliminate any risk of devices running an outdated image</li>
+            <li>Developed a same-day automated remediation for the 2024 CrowdStrike global outage and deployed it across multiple enterprise clients with a greater than 93% success rate. The core challenge was the boot loop — which cut off most endpoint management solutions entirely. The solution leveraged MECM's PXE boot capability to bring affected devices into a stable WinPE environment, then executed a fully automated remediation sequence. Two constraint scenarios required separate handling: BitLocker-encrypted drives could not be accessed from WinPE without first unlocking them. To solve this, an isolated copy of the BitLocker recovery key database was created and a conditional unlock script was written to query it via a temporary SQL account — allowing each device to retrieve its own key without exposing or writing new keys to the live environment. A separate key reroll script was then registered as a scheduled task on the offline OS, forcing a new recovery key to be generated and escrowed on first boot back into Windows — closing the exposure window cleanly. The full task sequence ran: BitLocker unlock (if applicable) → CrowdStrike file remediation via PowerShell matching CrowdStrike's official resolution pattern → scheduled task registration for key reroll on reboot. The only manual step was the PXE boot entry point — reboot, press F12, select network boot — simple enough to be performed by any employee, not just IT staff. Because the solution contained no sensitive data or hardcoded secrets it was portable and deployable across any number of clients or organizations</li>
+            <li>Designed and implemented a Delivery Framework system to solve a problem endemic to consulting — valuable IP leaving with engineers, knowledge siloed across individuals, and no centralized standard for how solutions were delivered. Built on SharePoint with child sites per business group, the framework established a source of truth for delivery methodology, document templates, Visio drawing standards, scripts, implementation notes, and a structured internal repository — all organized around individual deliverables so teams could find, use, and contribute back to the assets for any given product or solution. Built SharePoint page templates, example frameworks, and guided teams through adoption with live mentorship to ensure they were building toward the shared vision rather than recreating their own silos. Adoption spread organically across teams who immediately recognized the value and requested access. The framework is now the foundation for an AI integration initiative — scoping purpose-built models to individual deliverables to further improve and iterate on the assets within them</li>
+            <li>Engineered a custom MECM-to-Intune synchronization pipeline solving a gap Microsoft left unaddressed — no native tooling existed to synchronize application packages from on-premises MECM into Intune. The solution mapped MECM's SQL database schema to Intune's Graph API object model and wrote layered API call sequences that built Intune application objects in the correct dependency order. Automated the full pipeline end-to-end: application metadata derived from MECM's SQL database, installation content zipped via Microsoft's packaging tooling, uploaded to Intune blob storage, and registered as deployable applications — all from a single structured file server directory tree that enforced standards and made the process repeatable</li>
+            <li>Averaged 124% of target billable utilization across 2023 (2,050h), 2024 (2,104h), and 2025 (2,239h), excluding internal projects and mentoring</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-n">124%</div><div class="stat-l">Avg of target util.</div></div>
+            <div class="stat"><div class="stat-n">2,239h</div><div class="stat-l">Billable 2025</div></div>
+            <div class="stat"><div class="stat-n">93%+</div><div class="stat-l">CrowdStrike fix rate</div></div>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">IT Systems Administrator II</div>
+            <div class="job-date">2021 – 2022</div>
+          </div>
+          <div class="job-company">SpaceX &nbsp;·&nbsp; Hawthorne, CA</div>
+          <div class="job-desc">Recruited to modernize endpoint management and establish engineering standards across SpaceX's global device fleet — brought in under a sysadmin title but operating at architect scope from day one. Championed 39 projects and initiatives in under 12 months.</div>
+          <ul class="bullets">
+            <li>Partnered with the Starlink engineering team to redesign their Altium Designer infrastructure from the ground up. The environment had been architected for a small, co-located team in Redmond, WA — but as Starlink grew rapidly during and after COVID, engineers across Hawthorne, Starbase TX, Florida, and an expanding remote workforce were all attempting to access and modify shared design files served from a single, undersized compute host, creating severe bottlenecks and collaboration failures. Researched Altium Designer's distributed capabilities, held validation calls directly with Altium engineers to pressure-test the new design, then architected a scalable multi-site solution in collaboration with storage, database, and networking teams. Managed the full migration through scheduled maintenance windows; before/after performance improvements were validated by VMware vRealize monitoring and received high praise from the Starlink team</li>
+            <li>Authored <em>Starship Heart of Gold</em> from the ground up — a custom text-menu-driven packaging suite featuring automated remoting, authentication, sandbox VM orchestration for spin-up/teardown, and end-to-end packaging and testing workflows. Reduced packaging time from hours to minutes and opened the process to team members regardless of prior experience (~275 hours of development)</li>
+            <li>Solved a critical operational risk where endpoint engineers lacked visibility into sensitive devices that could not reboot during active workflows — designed and implemented a three-layer solution: (1) a <em>Reboot Abort Sequence</em> kill switch as a last-resort safety catch to immediately halt forced reboots, export Windows event logs, collect MECM agent and install logs, notify the user via toast notification, and centralize all logs to a server share for auditing; (2) a single source of truth to accurately identify and classify all sensitive devices, eliminating the confusion and gaps that had allowed the problem to persist; and (3) mature WaaS servicing plans developed in collaboration with product teams to ensure devices were enrolled in automated maintenance windows aligned with their CI/CD cycles — preventing the problem at the source</li>
+            <li>Built <em>Data Tiles UI</em> to protect costly, time-sensitive automation workflows in lab, QA/QC, and engineering environments — when an engineer logged onto a device, the overlay immediately surfaced the full state of the machine including OS health, MECM client configuration, encryption status, pending updates, and configuration drift. This allowed teams running fluid dynamics simulations, hardware testing, and other lengthy processes to confirm a device was in a supported state before committing to a workflow that risked failure or interruption mid-run</li>
+            <li>Built the <em>MECM Toolkit</em> — a full suite of scripts, Data Tiles UI overlays, and integrated tooling centered around a custom VM orchestration engine that continuously provisioned and maintained pools of Windows VMs for the endpoint engineering team. Functionally analogous to Terraform but purpose-built for Windows, it ensured the team always had consistent, fully-configured environments with all tools pre-integrated and ready for running workflows and automations against — a capability common in Linux and cloud environments but largely unsolved for Windows infrastructure at the time</li>
+            <li>Diagnosed and resolved a near-total MECM infrastructure failure in the first month — working three consecutive 15-hour days to restore services, then redesigned the SMS Provider and Management Point architecture to eliminate single points of failure and restore performance across the environment</li>
+            <li>Formulated a comprehensive MECM roadmap in Jira covering multi-site consolidation, HA/failover, performance, automation, and future-state planning; built supporting Confluence pages and dashboards for team and management visibility</li>
+            <li>Designed a documentation template system for Confluence that standardized structure and accelerated content creation across a growing catalogue of tech stacks, solutions, and products — adopted team-wide and scaled to cover the vast majority of the environment's documented surface area</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-n">98</div><div class="stat-l">Apps packaged</div></div>
+            <div class="stat"><div class="stat-n">39</div><div class="stat-l">Roadmap tickets</div></div>
+            <div class="stat"><div class="stat-n">61</div><div class="stat-l">Service tickets</div></div>
+            <div class="stat"><div class="stat-n">~275h</div><div class="stat-l">Heart of Gold dev</div></div>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Owner & Principal Consultant</div>
+            <div class="job-date">2014 – 2017, 2019 – 2021</div>
+          </div>
+          <div class="job-company">VividRock &nbsp;·&nbsp; US & Canada (95% Travel)</div>
+          <div class="job-desc">Founded and grew a specialized consulting firm delivering Endpoint Management, Identity Management, Operating System Migration, and Modern Workplace services. Authored industry white papers and sat on Enterprise Architect boards for two separate organizations.</div>
+          <ul class="bullets">
+            <li>Recruited and led a team of engineers spanning SCSM, SCOM, application packaging, and SharePoint development</li>
+            <li>Migrated global IT SAM data to Remedy for a Fortune 500 chemicals company, designing the full contract structure and software lifecycle workflow</li>
+            <li>Invited onto two separate Enterprise Architect boards as a cross-industry 3rd-party resource for solution design and implementation planning</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Enterprise Solutions Architect &amp; SCCM/MECM SME</div>
+            <div class="job-date">2017 – 2019</div>
+          </div>
+          <div class="job-company">Dell Technologies &nbsp;·&nbsp; North America East & Canada (95% Travel)</div>
+          <div class="job-desc">Joined as Senior SCCM/MECM Consultant and advanced into an Architect role. Built Dell's global Delivery Framework standard — a modular documentation and methodology system subsequently distributed worldwide and used as the basis for a Microsoft-commissioned WaaS initiative.</div>
+          <ul class="bullets">
+            <li>Identified customer improvement opportunities generating $650K in new sales, providing a year of work for a three-person team</li>
+            <li>Performed 40+ SCCM/MECM installations and migrations across enterprise environments</li>
+            <li>Selected by Dell senior management to design the WaaS Delivery Framework — commissioned by Microsoft, proven on Dell's own global infrastructure, then approved for worldwide production delivery</li>
+            <li>Designed Dell's modular Service Catalogue, eliminating complex SOWs and reducing pre-sales friction</li>
+            <li>Built and maintained a global SharePoint delivery hub — knowledge base, code repository, training materials — adopted across all delivery regions</li>
+          </ul>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-n">$650K</div><div class="stat-l">Pipeline built</div></div>
+            <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Deployments</div></div>
+            <div class="stat"><div class="stat-n">Global</div><div class="stat-l">Framework rollout</div></div>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Senior Systems Administrator / Solutions Architect</div>
+            <div class="job-date">2012 – 2014</div>
+          </div>
+          <div class="job-company">Southwestern Energy &nbsp;·&nbsp; Houston, TX</div>
+          <div class="job-desc">Maintained enterprise infrastructure and endpoint systems for a major natural gas E&P company across a multi-site environment.</div>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">Core Infrastructure Consultant</div>
+            <div class="job-date">2012</div>
+          </div>
+          <div class="job-company">Sparkhound &nbsp;·&nbsp; Houston, TX</div>
+          <div class="job-desc">Delivered infrastructure and endpoint consulting for enterprise clients across the Houston, TX area.</div>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <div class="job-title">IT Operations Analyst → IT Systems Administrator</div>
+            <div class="job-date">2007 – 2012</div>
+          </div>
+          <div class="job-company">Expro &nbsp;·&nbsp; Houston, TX</div>
+          <div class="job-desc">Five-year progression from IT operations to systems administration at a global oilfield services company, supporting multi-site infrastructure across the organization.</div>
+        </div>
+
+      </div><!-- /experience -->
+
+    </main>
+  </div><!-- /body -->
+</div><!-- /page -->
+
+<div class="print-end">
+  <span class="print-end-rule"></span>
+  <span class="print-end-text">// EOF</span>
+  <span class="print-end-rule"></span>
+</div>
+
+<script>
+  // Continuous export: add ?continuous to the URL to suppress page breaks
+  if (location.search.includes('continuous')) {
+    const heightIn = ((document.documentElement.scrollHeight / 96) + 0.5).toFixed(2);
+    const s = document.createElement('style');
+    s.textContent = `@page { size: 8.5in ${heightIn}in; margin: 8mm 0; }`;
+    document.head.appendChild(s);
+  }
+
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    const icon = document.getElementById('theme-icon');
+    const label = document.getElementById('theme-label');
+    if (isDark) {
+      icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>';
+      label.textContent = 'Dark';
+    } else {
+      icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+      label.textContent = 'Light';
+    }
+  }
+
+  // Respect system preference on load
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.getElementById('theme-label').textContent = 'Dark';
+    document.getElementById('theme-icon').innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  }
+</script>
+
+</body>
+</html>
